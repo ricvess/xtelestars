@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xtelestar | Telegram Stars</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #000, #1a1a1a);
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px 0;
+      font-weight: 600;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #333;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      background: #111;
+      color: #aaa;
+      padding: 10px 20px;
+      cursor: pointer;
+      border: 1px solid #222;
+      transition: 0.3s;
+    }
+
+    .tab.active {
+      background: #0a84ff;
+      color: white;
+      border-color: #0a84ff;
+    }
+
+    .tab:not(:last-child) {
+      border-right: none;
+    }
+
+    .search-box {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .search-box input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .product-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #111;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid #222;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #0a84ff;
+    }
+
+    .card h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .card p {
+      color: #bbb;
+      margin-bottom: 15px;
+    }
+
+    .order-btn {
+      display: inline-block;
+      background: #0a84ff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .order-btn:hover {
+      background: #0071e3;
+    }
+
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      padding: 30px 0;
+      border-top: 1px solid #222;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>Telegram Stars by @xtelestar</header>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab active" id="gift-tab">Gift Emoji Stars</div>
+      <div class="tab" id="topup-tab">Topup Stars</div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Cari jumlah stars...">
+    </div>
+
+    <div id="gift-list" class="product-list"></div>
+    <div id="topup-list" class="product-list" style="display:none;"></div>
+  </div>
+
+  <footer>avail formless, chat <a href="https://t.me/wonhgee" style="color:#0a84ff;">@wonhgee</a></footer>
+
+  <script>
+    const giftData = [
+      { name: "10 Stars", price: "3.000" },
+      { name: "15 Stars", price: "4.500" },
+      { name: "25 Stars", price: "7.500" },
+      { name: "50 Stars", price: "15.000" },
+      { name: "100 Stars", price: "30.000" },
+    ];
+
+    const topupData = [
+      { name: "50 Stars", price: "15.000" },
+      { name: "75 Stars", price: "23.000" },
+      { name: "100 Stars", price: "30.000" },
+      { name: "150 Stars", price: "45.000" },
+      { name: "200 Stars", price: "60.000" },
+      { name: "250 Stars", price: "70.000" },
+      { name: "350 Stars", price: "95.000" },
+      { name: "500 Stars", price: "135.000" },
+      { name: "705 Stars", price: "202.000" },
+      { name: "1000 Stars", price: "270.000" },
+    ];
+
+    const giftList = document.getElementById("gift-list");
+    const topupList = document.getElementById("topup-list");
+    const searchInput = document.getElementById("searchInput");
+
+    function renderProducts(list, data) {
+      list.innerHTML = "";
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
+          <h3>${item.name}</h3>
+          <p>Rp ${item.price}</p>
+          <a href="https://t.me/wonhgee" class="order-btn">Order</a>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    renderProducts(giftList, giftData);
+    renderProducts(topupList, topupData);
+
+    const giftTab = document.getElementById("gift-tab");
+    const topupTab = document.getElementById("topup-tab");
+
+    giftTab.addEventListener("click", () => {
+      giftTab.classList.add("active");
+      topupTab.classList.remove("active");
+      giftList.style.display = "grid";
+      topupList.style.display = "none";
+      searchInput.value = "";
+    });
+
+    topupTab.addEventListener("click", () => {
+      topupTab.classList.add("active");
+      giftTab.classList.remove("active");
+      topupList.style.display = "grid";
+      giftList.style.display = "none";
+      searchInput.value = "";
+    });
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      const activeList = giftTab.classList.contains("active") ? giftData : topupData;
+      const filtered = activeList.filter(item => item.name.toLowerCase().includes(query));
+      const targetList = giftTab.classList.contains("active") ? giftList : topupList;
+      renderProducts(targetList, filtered);
+    });
+  </script>
+</body>
+</html>
