@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SAEY:Ly — JUST 36:9 U</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* default (Dark Neon) */
+      --bg: #0b0c10;
+      --fg: #f2f2f2;
+      --muted: #b7b7b7;
+      --accent: #ffd86b;
+      --accent-2: #6df1ff;
+      --card: #12141a;
+      --shadow: rgba(0,0,0,.35);
+      --ring: rgba(255,216,107,.35);
+      --grain: rgba(255,255,255,0.03);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Space Grotesk', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+
+    /* Animated background gradients per theme will be applied to .bg */
+    .bg {
+      position: fixed; inset: 0; z-index: -2;
+      background: radial-gradient(1200px 800px at 10% 10%, #1a2a6c 0%, transparent 60%),
+                  radial-gradient(1000px 600px at 90% 30%, #fdbb2d55 0%, transparent 60%),
+                  radial-gradient(900px 700px at 40% 90%, #22c1c355 0%, transparent 60%),
+                  var(--bg);
+      filter: saturate(1.05) contrast(1.05);
+      animation: bgShift 18s ease-in-out infinite alternate;
+    }
+    @keyframes bgShift { to { filter: hue-rotate(20deg) saturate(1.2); } }
+
+    /* Soft film grain overlay */
+    .grain { position: fixed; inset: 0; pointer-events:none; z-index:-1;
+      background:
+        repeating-linear-gradient(0deg, var(--grain) 0px, var(--grain) 1px, transparent 2px, transparent 3px),
+        repeating-linear-gradient(90deg, var(--grain) 0px, var(--grain) 1px, transparent 2px, transparent 3px);
+      mix-blend-mode: soft-light;
+      animation: grainMove 2.4s steps(2) infinite;
+    }
+    @keyframes grainMove { from { transform: translate(0,0);} to { transform: translate(3px,-3px);} }
+
+    header.hero {
+      min-height: 92vh; display: grid; place-items: center; text-align: center; padding: 48px 20px 24px;
+      position: relative;
+    }
+
+    .logo {
+      font-family: 'Cinzel Decorative', serif;
+      letter-spacing: .06em;
+      text-shadow: 0 10px 30px var(--shadow);
+    }
+
+    .title-stack { line-height: 1.06; }
+    .title-giant {
+      font-size: clamp(40px, 8vw, 92px);
+      font-weight: 900;
+      margin: 0;
+      color: var(--accent);
+      filter: drop-shadow(0 12px 40px var(--shadow));
+    }
+    .title-alt {
+      font-size: clamp(22px, 3.4vw, 40px);
+      margin: 10px 0 0;
+      color: var(--accent-2);
+      opacity: .92;
+    }
+
+    .subtitle { margin-top: 16px; font-size: clamp(14px, 2.2vw, 18px); color: var(--muted); }
+
+    .chipbar {
+      display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap: wrap; margin-top: 26px;
+    }
+    .chip {
+      border: 1px solid var(--ring); color: var(--fg); background: rgba(255,255,255,.02);
+      padding: 10px 14px; border-radius: 999px; backdrop-filter: blur(4px);
+      cursor: pointer; transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      box-shadow: 0 10px 20px -10px var(--shadow);
+      user-select: none;
+    }
+    .chip:hover { transform: translateY(-2px); background: rgba(255,255,255,.05); }
+    .chip.active { border-color: var(--accent); box-shadow: 0 12px 30px -8px var(--shadow); }
+
+    /* Panels */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 80px; }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 24px; padding: 28px; box-shadow: 0 20px 60px -30px var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+    section { margin: 26px 0 26px; }
+    h2.section-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(22px, 3vw, 34px); margin: 0 0 14px; }
+    p { line-height: 1.7; color: var(--fg); opacity: .95; }
+
+    /* Typewriter */
+    .typewriter { font-size: clamp(16px, 2.3vw, 22px); font-style: italic; border-right: 2px solid var(--accent); white-space: nowrap; overflow: hidden; padding-right: 4px; }
+    @keyframes caret { 50% { border-color: transparent; }}
+
+    /* Floating retro shapes */
+    .floaty { position: absolute; width: 18px; height: 18px; border-radius: 50%; opacity: .6; filter: blur(.4px);
+      background: radial-gradient(circle at 30% 30%, var(--accent), transparent 70%);
+      animation: floaty 8s ease-in-out infinite;
+    }
+    @keyframes floaty { 0% { transform: translateY(0) translateX(0);} 50% { transform: translateY(-30px) translateX(10px);} 100% { transform: translateY(0) translateX(0);} }
+
+    /* Footer */
+    footer { text-align: center; padding: 40px 20px 80px; color: var(--muted); }
+
+    /* Theme variants using data-theme on body */
+    body[data-theme="dark-neon"] { --bg:#0b0c10; --fg:#f2f2f2; --muted:#b7b7b7; --accent:#ffd86b; --accent-2:#6df1ff; --card:#12141a; --ring:rgba(255,216,107,.35); }
+    body[data-theme="retro-pink"] { --bg:#1b0f17; --fg:#fff3f8; --muted:#ffdeef; --accent:#ffa4d1; --accent-2:#ffd86b; --card:#2a1424; --ring:rgba(255,164,209,.4); }
+    body[data-theme="indie-beige"] { --bg:#1a1816; --fg:#fff8ee; --muted:#e9dccf; --accent:#d7b889; --accent-2:#a3e1d1; --card:#25211d; --ring:rgba(215,184,137,.4); }
+    body[data-theme="teal-orange"] { --bg:#0f1b1a; --fg:#eafffb; --muted:#cdebe4; --accent:#f4a259; --accent-2:#2ec4b6; --card:#112422; --ring:rgba(46,196,182,.35); }
+    body[data-theme="mono-minimal"] { --bg:#0f0f0f; --fg:#f5f5f5; --muted:#cfcfcf; --accent:#f5f5f5; --accent-2:#bdbdbd; --card:#171717; --ring:rgba(255,255,255,.22); }
+
+    /* Background variations per theme */
+    body[data-theme="retro-pink"] .bg { background:
+      radial-gradient(1000px 600px at 15% 15%, #ff7eb399 0%, transparent 60%),
+      radial-gradient(900px 600px at 85% 35%, #ffd86b55 0%, transparent 60%),
+      radial-gradient(900px 700px at 40% 90%, #ffb6c199 0%, transparent 60%), var(--bg);
+    }
+    body[data-theme="indie-beige"] .bg { background:
+      radial-gradient(1100px 700px at 20% 20%, #d7b88988 0%, transparent 60%),
+      radial-gradient(900px 600px at 80% 30%, #a3e1d188 0%, transparent 60%),
+      radial-gradient(900px 700px at 40% 90%, #6c584c66 0%, transparent 60%), var(--bg);
+    }
+    body[data-theme="teal-orange"] .bg { background:
+      radial-gradient(1000px 600px at 15% 15%, #2ec4b6aa 0%, transparent 60%),
+      radial-gradient(900px 600px at 85% 35%, #f4a25988 0%, transparent 60%),
+      radial-gradient(900px 700px at 40% 90%, #3a506baa 0%, transparent 60%), var(--bg);
+    }
+    body[data-theme="mono-minimal"] .bg { background:
+      radial-gradient(1000px 600px at 15% 15%, #ffffff18 0%, transparent 60%),
+      radial-gradient(900px 600px at 85% 35%, #ffffff10 0%, transparent 60%),
+      radial-gradient(900px 700px at 40% 90%, #ffffff0e 0%, transparent 60%), var(--bg);
+    }
+
+    /* Utility */
+    .center { display:flex; align-items:center; justify-content:center; }
+    .row { display:flex; gap: 14px; flex-wrap: wrap; }
+    .muted { color: var(--muted); }
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); margin: 26px 0; }
+
+    /* CTA button */
+    .btn { border:1px solid var(--ring); color: var(--fg); background: transparent; padding:12px 18px; border-radius:14px; cursor:pointer; transition: .2s; }
+    .btn:hover { transform: translateY(-1px); box-shadow:0 14px 28px -18px var(--shadow); }
+
+    /* Mini player */
+    .player { display:flex; align-items:center; gap:12px; background: var(--card); border:1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 10px 14px; }
+    .player .title { font-weight:600; }
+
+    /* Control dock */
+    .dock { position: fixed; right: 16px; bottom: 16px; display:flex; gap:10px; flex-direction: column; z-index: 10; }
+    .dock .panel { background: var(--card); border:1px solid rgba(255,255,255,.14); border-radius:16px; padding: 10px 12px; box-shadow: 0 20px 40px -28px var(--shadow); }
+    .dock label { font-size: 12px; color: var(--muted); display:block; margin-bottom: 6px; }
+    .dock select, .dock input[type="range"] { width: 180px; background: transparent; color: var(--fg); }
+    .dock option { color: #111; }
+
+    /* Responsive tune */
+    @media(max-width:640px){ .chipbar{gap:8px} .chip{padding:9px 12px} .dock select{width:160px} }
+  </style>
+</head>
+<body data-theme="dark-neon">
+  <div class="bg"></div>
+  <div class="grain"></div>
+
+  <!-- Floating shapes container -->
+  <div id="floaties"></div>
+
+  <header class="hero">
+    <div class="title-stack logo" id="heroTitle">
+      <h1 class="title-giant" id="phase1">36 ÷ 9</h1>
+      <h2 class="title-alt" id="phase2" style="opacity:0; transform: translateY(6px);">equals <span style="font-variant-numeric: lining-nums;">4</span></h2>
+      <h1 class="title-giant" id="phase3" style="display:none;">JUST 36:9 U</h1>
+      <h1 class="title-giant" id="phase4" style="display:none;">JUST FOR U</h1>
+      <div class="subtitle">“36 divide 9, and my heart just for you”</div>
+      <div class="chipbar" style="margin-top:22px;">
+        <div class="chip active" id="enterBtn">Enter Site</div>
+        <a class="chip" href="#about">About</a>
+        <a class="chip" href="#lyrics">Lyrics</a>
+        <a class="chip" href="#gallery">Gallery</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="about" class="card">
+      <h2 class="section-title">About this comeback</h2>
+      <p>
+        SAEY:Ly kembali dengan single <strong>“JUST 36:9 U”</strong> — sebuah retro‑indie anthem dengan twist numerik.
+        <br/>
+        <strong>36 ÷ 9 = 4 → FOR</strong>. Diucapkan sebagai “Just for U”.
+        Lagu ini ditulis sebagai pesan yang sederhana namun personal; sebuah kode kecil yang akan terasa spesial ketika kamu mengetahuinya.
+      </p>
+      <div class="divider"></div>
+      <div class="row center">
+        <div class="player">
+          <button class="btn" id="playBtn">▶ Play snippet</button>
+          <div>
+            <div class="title">JUST 36:9 U — teaser</div>
+            <div class="muted" style="font-size:12px">(Ganti src audio di kode jika sudah ada)</div>
+          </div>
+          <audio id="audio" preload="none">
+            <!-- TODO: Ganti dengan file kamu, contoh: <source src="/audio/just-369u-teaser.mp3" type="audio/mpeg"> -->
+          </audio>
+        </div>
+      </div>
+    </section>
+
+    <section id="lyrics" class="card">
+      <h2 class="section-title">Lyrics preview</h2>
+      <p id="typewriter" class="typewriter" aria-live="polite"></p>
+    </section>
+
+    <section id="gallery" class="card">
+      <h2 class="section-title">Gallery</h2>
+      <p class="muted">Taruh poster/teaser di sini (ganti <code>src</code> gambarnya).</p>
+      <div class="row center" style="justify-content:center;">
+        <img src="https://images.unsplash.com/photo-1549887534-1541e9326642?q=80&w=1200&auto=format&fit=crop" alt="Poster teaser" style="width:100%; max-width:520px; border-radius:18px; box-shadow:0 24px 70px -40px var(--shadow); border:1px solid rgba(255,255,255,.14)"/>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 SAEY:Ly. All rights reserved.
+  </footer>
+
+  <!-- Control Dock: Themes & FX -->
+  <div class="dock">
+    <div class="panel">
+      <label for="themeSelect">Theme</label>
+      <select id="themeSelect" aria-label="Select theme">
+        <option value="dark-neon">Dark Neon</option>
+        <option value="retro-pink">Retro Pink</option>
+        <option value="indie-beige">Indie Beige</option>
+        <option value="teal-orange">Teal & Orange</option>
+        <option value="mono-minimal">Mono Minimal</option>
+      </select>
+    </div>
+    <div class="panel">
+      <label for="shapeCount">Floating shapes</label>
+      <input id="shapeCount" type="range" min="0" max="30" value="12" />
+    </div>
+  </div>
+
+  <script>
+    // --- Hero staged animation (36 ÷ 9 -> 4 -> JUST 36:9 U -> JUST FOR U) ---
+    const p1 = document.getElementById('phase1');
+    const p2 = document.getElementById('phase2');
+    const p3 = document.getElementById('phase3');
+    const p4 = document.getElementById('phase4');
+
+    function heroSequence(){
+      // phase 1 visible initially
+      setTimeout(()=>{
+        p2.style.transition = 'all .8s ease';
+        p2.style.opacity = '1';
+        p2.style.transform = 'translateY(0)';
+      }, 900);
+
+      setTimeout(()=>{
+        // swap to JUST 36:9 U
+        p1.style.transition='opacity .5s ease';
+        p2.style.transition='opacity .5s ease, transform .5s ease';
+        p1.style.opacity='0';
+        p2.style.opacity='0';
+        setTimeout(()=>{
+          p1.style.display='none';
+          p2.style.display='none';
+          p3.style.display='block';
+          p3.style.opacity='0';
+          requestAnimationFrame(()=>{ p3.style.transition='opacity .7s ease'; p3.style.opacity='1'; });
+        }, 500);
+      }, 2200);
+
+      setTimeout(()=>{
+        // final morph to JUST FOR U
+        p3.style.transition='opacity .6s ease';
+        p3.style.opacity='0';
+        setTimeout(()=>{
+          p3.style.display='none';
+          p4.style.display='block';
+          p4.style.opacity='0';
+          requestAnimationFrame(()=>{ p4.style.transition='opacity .7s ease'; p4.style.opacity='1'; });
+        }, 600);
+      }, 4200);
+    }
+    heroSequence();
+
+    // Re-run hero animation when clicking the title
+    document.getElementById('heroTitle').addEventListener('click', ()=>{
+      [p1,p2,p3,p4].forEach(el=>{ el.removeAttribute('style'); });
+      p2.style.opacity='0'; p2.style.transform='translateY(6px)'; p3.style.display='none'; p4.style.display='none';
+      heroSequence();
+    });
+
+    // Smooth scroll from Enter
+    document.getElementById('enterBtn').addEventListener('click',()=>{
+      document.querySelector('#about').scrollIntoView({behavior:'smooth'});
+    });
+
+    // --- Typewriter effect ---
+    const LYRICS = '36 divide 9, and my heart just for you';
+    const tw = document.getElementById('typewriter');
+    let idx = 0; tw.style.animation = 'caret 1s step-end infinite';
+    function typeLoop(){
+      if(idx <= LYRICS.length){
+        tw.textContent = LYRICS.slice(0, idx++);
+        const delay = 38 + Math.random()*90; // human-ish
+        setTimeout(typeLoop, delay);
+      } else {
+        setTimeout(()=>{ idx = 0; tw.textContent=''; typeLoop(); }, 1800);
+      }
+    }
+    typeLoop();
+
+    // --- Theme switcher ---
+    const themeSelect = document.getElementById('themeSelect');
+    themeSelect.addEventListener('change', (e)=>{
+      document.body.setAttribute('data-theme', e.target.value);
+    });
+
+    // --- Floating shapes ---
+    const floaties = document.getElementById('floaties');
+    const shapeRange = document.getElementById('shapeCount');
+
+    function rand(min, max){ return Math.random()*(max-min)+min; }
+
+    function drawFloaties(count){
+      floaties.innerHTML='';
+      for(let i=0;i<count;i++){
+        const d = document.createElement('div');
+        d.className = 'floaty';
+        const size = rand(10, 36);
+        d.style.width = size+'px'; d.style.height = size+'px';
+        d.style.left = rand(0, 100)+'vw';
+        d.style.top = rand(10, 85)+'vh';
+        d.style.opacity = rand(.25, .65);
+        d.style.animationDuration = rand(7, 15)+'s';
+        d.style.animationDelay = (-rand(0, 10))+'s';
+        // some will be squares/triangles-ish via clip-path
+        if(Math.random()>0.66){
+          d.style.borderRadius = Math.random()>0.5 ? '8px' : '0';
+          d.style.background = 'linear-gradient(135deg, var(--accent), transparent)';
+          if(Math.random()>0.5) d.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
+        }
+        floaties.appendChild(d);
+      }
+    }
+    drawFloaties(parseInt(shapeRange.value,10));
+    shapeRange.addEventListener('input', (e)=> drawFloaties(parseInt(e.target.value,10)) );
+
+    // --- Mini audio player ---
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('playBtn');
+    let playing = false;
+    playBtn.addEventListener('click', ()=>{
+      if(!audio.querySelector('source')){
+        alert('Belum ada file audio. Tambahkan <source src="/path/to/your.mp3" type="audio/mpeg"> di elemen <audio> ya.');
+        return;
+      }
+      if(!playing){ audio.play(); playBtn.textContent='⏸ Pause'; } else { audio.pause(); playBtn.textContent='▶ Play snippet'; }
+      playing = !playing;
+    });
+  </script>
+</body>
+</html>
