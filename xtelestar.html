@@ -1,250 +1,276 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xtelestar | Telegram Stars</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Telegram Stars Pricelist by @xTelestar</title>
+
+<style>
+    :root {
+        --bg: #0f0f16;
+        --card: #181821;
+        --text: #ffffff;
+        --sub: #b5b5b5;
+        --blue: #4d78ff;
+        --accent: #2a2a36;
+    }
+
+    body.light {
+        --bg: #f4f6ff;
+        --card: #ffffff;
+        --text: #1a1a1a;
+        --sub: #555555;
+        --accent: #e3e6f6;
+    }
+
     body {
-      font-family: 'Outfit', sans-serif;
-      background: linear-gradient(160deg, #0a0a10, #1a1c25, #222533);
-      color: white;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
+        margin: 0;
+        font-family: Arial;
+        background: var(--bg);
+        color: var(--text);
+        transition: 0.3s;
     }
 
     header {
-      text-align: center;
-      padding: 25px 0;
-      font-weight: 700;
-      font-size: 1.4rem;
-      letter-spacing: 0.5px;
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(10px);
+        text-align: center;
+        padding: 25px 15px;
+        font-size: 22px;
+        font-weight: bold;
+        color: var(--text);
+    }
+
+    .toggle-box {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .toggle-btn {
+        padding: 8px 15px;
+        background: var(--accent);
+        color: var(--text);
+        border-radius: 10px;
+        cursor: pointer;
     }
 
     .container {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+        width: 92%;
+        max-width: 800px;
+        margin: auto;
     }
 
-    .tabs {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 25px;
-      gap: 10px;
+    .section-title {
+        font-size: 19px;
+        margin: 25px 0 10px;
+        font-weight: bold;
+        color: var(--text);
     }
 
-    .tab {
-      background: #252836;
-      color: #bbb;
-      padding: 10px 24px;
-      cursor: pointer;
-      border-radius: 10px;
-      border: none;
-      transition: 0.3s;
-      font-weight: 500;
+    .calc-box {
+        background: var(--card);
+        padding: 15px;
+        border-radius: 14px;
+        margin-bottom: 25px;
     }
 
-    .tab:hover {
-      background: #32364a;
+    input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        font-size: 15px;
+        margin-top: 8px;
+        background: var(--accent);
+        color: var(--text);
     }
 
-    .tab.active {
-      background: #3d5cff;
-      color: white;
-      box-shadow: 0 0 15px rgba(61, 92, 255, 0.4);
+    .result {
+        margin-top: 10px;
+        font-size: 16px;
+        color: var(--blue);
+        font-weight: bold;
     }
 
-    .search-box {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .search-box input {
-      width: 85%;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      background: #2c2f3f;
-      color: white;
-      transition: 0.3s;
-    }
-
-    .search-box input:focus {
-      background: #343850;
-      box-shadow: 0 0 10px rgba(61, 92, 255, 0.3);
-    }
-
-    .product-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 25px;
-      animation: fadeIn 0.4s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 15px;
     }
 
     .card {
-      background: linear-gradient(180deg, #2a2d3b, #1e2030);
-      padding: 22px;
-      border-radius: 16px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: 0.3s;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
+        background: var(--card);
+        padding: 15px;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: 0.2s;
     }
-
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 0 15px rgba(61, 92, 255, 0.3);
+        transform: scale(1.04);
     }
 
-    .card h3 {
-      margin: 0 0 8px 0;
-      font-size: 1.2rem;
-      color: #fff;
+    .stars {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: var(--text);
     }
 
-    .card p {
-      color: #b6b8c4;
-      margin-bottom: 16px;
+    .price {
+        font-size: 15px;
+        color: var(--blue);
+        font-weight: bold;
     }
 
-    .order-btn {
-      display: inline-block;
-      background: #3d5cff;
-      color: white;
-      padding: 10px 22px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: 0.3s;
-      box-shadow: 0 0 10px rgba(61, 92, 255, 0.4);
+    .popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.55);
+        display: none;
+        justify-content: center;
+        align-items: center;
     }
 
-    .order-btn:hover {
-      background: #5672ff;
-      box-shadow: 0 0 18px rgba(61, 92, 255, 0.6);
+    .popup-box {
+        background: var(--card);
+        padding: 20px;
+        width: 85%;
+        max-width: 330px;
+        border-radius: 14px;
+        text-align: center;
+    }
+
+    .close {
+        margin-top: 15px;
+        padding: 10px 15px;
+        background: var(--accent);
+        border-radius: 10px;
+        cursor: pointer;
     }
 
     footer {
-      text-align: center;
-      color: #888;
-      font-size: 0.9rem;
-      padding: 40px 0;
-      border-top: 1px solid rgba(255,255,255,0.05);
-      margin-top: 60px;
+        text-align: center;
+        padding: 25px;
+        margin-top: 40px;
+        font-size: 14px;
+        color: var(--sub);
     }
 
-    footer a {
-      color: #3d5cff;
-      text-decoration: none;
-      font-weight: 600;
+    .scroll-top {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        padding: 12px 15px;
+        background: var(--blue);
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 17px;
     }
+</style>
 
-    footer a:hover {
-      color: #5672ff;
-    }
-  </style>
 </head>
 <body>
-  <header>Telegram Stars by @xtelestar</header>
 
-  <div class="container">
-    <div class="tabs">
-      <div class="tab active" id="gift-tab">Gift Emoji Stars</div>
-      <div class="tab" id="topup-tab">Topup Stars</div>
+<header>Telegram Stars Pricelist by @xTelestar</header>
+
+<div class="toggle-box">
+    <div class="toggle-btn" onclick="toggleMode()">Mode Gelap Terang</div>
+</div>
+
+<div class="container">
+
+    <div class="section-title">Gift & Topup</div>
+
+    <div class="calc-box">
+        <label>Masukkan jumlah Stars</label>
+        <input id="inputStars" type="number" placeholder="Contoh 137" oninput="hitung()">
+        <div class="result" id="resultBox"></div>
+
+        <br>
+        <label>Masukkan jumlah Rupiah</label>
+        <input id="inputRupiah" type="number" placeholder="Contoh 100000" oninput="konversi()">
+        <div class="result" id="resultStars"></div>
     </div>
 
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Cari jumlah stars...">
+    <div class="grid" id="cards"></div>
+
+</div>
+
+<div class="popup" id="popup">
+    <div class="popup-box">
+        <div id="popupTitle" class="stars"></div>
+        <div id="popupPrice" class="price"></div>
+        <div class="close" onclick="tutup()">Tutup</div>
     </div>
+</div>
 
-    <div id="gift-list" class="product-list"></div>
-    <div id="topup-list" class="product-list" style="display:none;"></div>
-  </div>
+<div class="scroll-top" onclick="scrollToTop()">↑</div>
 
-  <footer>avail formless, chat <a href="https://t.me/wonhgee">@wonhgee</a></footer>
+<footer>
+    WA 08xxxxxxx  Telegram @xTelestar  Buka 09.00 22.00
+</footer>
 
-  <script>
-    const giftData = [
-      { name: "10 Stars", price: "3.000" },
-      { name: "15 Stars", price: "4.500" },
-      { name: "25 Stars", price: "7.500" },
-      { name: "50 Stars", price: "15.000" },
-      { name: "100 Stars", price: "30.000" },
-    ];
+<script>
+const daftar = [50, 100, 150, 300, 500, 1000, 2000, 5000];
+const hargaPerStar = 300;
 
-    const topupData = [
-      { name: "50 Stars", price: "15.000" },
-      { name: "75 Stars", price: "23.000" },
-      { name: "100 Stars", price: "30.000" },
-      { name: "150 Stars", price: "45.000" },
-      { name: "200 Stars", price: "60.000" },
-      { name: "250 Stars", price: "70.000" },
-      { name: "350 Stars", price: "95.000" },
-      { name: "500 Stars", price: "135.000" },
-      { name: "705 Stars", price: "202.000" },
-      { name: "1000 Stars", price: "270.000" },
-    ];
-
-    const giftList = document.getElementById("gift-list");
-    const topupList = document.getElementById("topup-list");
-    const searchInput = document.getElementById("searchInput");
-
-    function renderProducts(list, data) {
-      list.innerHTML = "";
-      data.forEach(item => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = `
-          <h3>${item.name}</h3>
-          <p>Rp ${item.price}</p>
-          <a href="https://t.me/wonhgee" class="order-btn">Order</a>
+function tampil() {
+    const grid = document.getElementById("cards");
+    daftar.forEach(star => {
+        const harga = star * hargaPerStar;
+        const div = document.createElement("div");
+        div.className = "card";
+        div.onclick = () => bukaPopup(star, harga);
+        div.innerHTML = `
+            <div class="stars">${star} Stars</div>
+            <div class="price">Rp ${harga.toLocaleString()}</div>
         `;
-        list.appendChild(card);
-      });
+        grid.appendChild(div);
+    });
+}
+tampil();
+
+function hitung() {
+    let val = document.getElementById("inputStars").value;
+    if (!val) {
+        document.getElementById("resultBox").innerHTML = "";
+        return;
     }
+    let total = val * hargaPerStar;
+    document.getElementById("resultBox").innerHTML = "Total Rp " + total.toLocaleString();
+}
 
-    renderProducts(giftList, giftData);
-    renderProducts(topupList, topupData);
+function konversi() {
+    let val = document.getElementById("inputRupiah").value;
+    if (!val) {
+        document.getElementById("resultStars").innerHTML = "";
+        return;
+    }
+    let dpt = Math.floor(val / hargaPerStar);
+    document.getElementById("resultStars").innerHTML = dpt + " Stars";
+}
 
-    const giftTab = document.getElementById("gift-tab");
-    const topupTab = document.getElementById("topup-tab");
+function bukaPopup(stars, harga) {
+    document.getElementById("popupTitle").innerHTML = stars + " Stars";
+    document.getElementById("popupPrice").innerHTML = "Rp " + harga.toLocaleString();
+    document.getElementById("popup").style.display = "flex";
+}
 
-    giftTab.addEventListener("click", () => {
-      giftTab.classList.add("active");
-      topupTab.classList.remove("active");
-      giftList.style.display = "grid";
-      topupList.style.display = "none";
-      searchInput.value = "";
-    });
+function tutup() {
+    document.getElementById("popup").style.display = "none";
+}
 
-    topupTab.addEventListener("click", () => {
-      topupTab.classList.add("active");
-      giftTab.classList.remove("active");
-      topupList.style.display = "grid";
-      giftList.style.display = "none";
-      searchInput.value = "";
-    });
+function toggleMode() {
+    document.body.classList.toggle("light");
+}
 
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.toLowerCase();
-      const activeList = giftTab.classList.contains("active") ? giftData : topupData;
-      const filtered = activeList.filter(item => item.name.toLowerCase().includes(query));
-      const targetList = giftTab.classList.contains("active") ? giftList : topupList;
-      renderProducts(targetList, filtered);
-    });
-  </script>
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
 </body>
 </html>
